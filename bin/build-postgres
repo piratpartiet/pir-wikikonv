@@ -2,7 +2,7 @@
 
 #=======================================================================
 # build-postgres
-# File ID: 86126f82-2e60-11e5-bf33-fefdb24f8e10
+# File ID: efeb1678-367b-11e7-b804-db5caa6d21d3
 #
 # Compile and install the Postgres version stored in $srcdir .
 #
