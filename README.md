@@ -18,6 +18,13 @@ som ikke stemmer. Disse make-kommandoene er tilgjengelige:
   at alle forutsetninger er til stede, som f.eks. installert programvare 
   osv.
 
-Ikke så mye mer enn det å si, men lisensen er viktig:
+Status
+------
+
+Ja, dette blir jo interessant...
+
+Lisens
+------
+
 Alle filene er lisensiert under GNU General Public License v2 eller 
 senere, tilgjengelig fra <http://www.gnu.org/licenses/gpl-2.0.txt>.
