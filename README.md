@@ -8,12 +8,12 @@ med en standard `make`. Den fortsetter fra der konverteringen ble
 avbrutt sist, og avbrytes ved første feil eller tegn på at det er noe 
 som ikke stemmer. Disse make-kommandoene er tilgjengelige:
 
-- *make*<br />
+- **make**<br />
   Kjør konverteringen.
-- *make clean*<br />
+- **make clean**<br />
   Slett alle genererte filer og sett alt tilbake til en jomfruelig 
   tilstand, klar for en ny konvertering.
-- *make test*<br />
+- **make test**<br />
   Kjør diverse tester for å se at systemet fungerer greit nok. Sjekker 
   at alle forutsetninger er til stede, som f.eks. installert programvare 
   osv.
