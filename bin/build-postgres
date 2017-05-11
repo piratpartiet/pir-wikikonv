@@ -1,0 +1,266 @@
+#!/usr/bin/env bash
+
+#=======================================================================
+# build-postgres
+# File ID: 86126f82-2e60-11e5-bf33-fefdb24f8e10
+#
+# Compile and install the Postgres version stored in $srcdir .
+#
+# Author: Øyvind A. Holm <sunny@sunbase.org>
+# License: GNU General Public License version 2 or later.
+#=======================================================================
+
+progname=build-postgres
+VERSION=0.3.0
+
+ARGS="$(getopt -o "\
+h\
+q\
+u\
+v\
+" -l "\
+help,\
+quiet,\
+update,\
+verbose,\
+version,\
+" -n "$progname" -- "$@")"
+test "$?" = "0" || exit 1
+eval set -- "$ARGS"
+
+opt_help=0
+opt_quiet=0
+opt_update=0
+opt_verbose=0
+while :; do
+    case "$1" in
+        (-h|--help) opt_help=1; shift ;;
+        (-q|--quiet) opt_quiet=$(($opt_quiet + 1)); shift ;;
+        (-u|--update) opt_update=1; shift ;;
+        (-v|--verbose) opt_verbose=$(($opt_verbose + 1)); shift ;;
+        (--version) echo $progname $VERSION; exit 0 ;;
+        (--) shift; break ;;
+        (*) echo $progname: Internal error >&2; exit 1 ;;
+    esac
+done
+opt_verbose=$(($opt_verbose - $opt_quiet))
+
+if test "$opt_help" = "1"; then
+    test $opt_verbose -gt 0 && { echo; echo $progname $VERSION; }
+    cat <<END
+
+Usage: $progname [options]
+
+Options:
+
+  -h, --help
+    Show this help.
+  -q, --quiet
+    Be more quiet. Can be repeated to increase silence.
+  -u, --update
+    Fetch new commits and update the source code.
+  -v, --verbose
+    Increase level of verbosity. Can be repeated.
+  --version
+    Print version information.
+
+END
+    exit 0
+fi
+
+msg() {
+    unset no_lf
+    if test "$1" = "-n"; then
+        # If -n is first argument, don't terminate with \n
+        local no_lf="-n"
+        shift
+    fi
+    if test "$1" = "-s"; then
+        # If -s is specified, skip initial \n
+        shift
+    else
+        echo >&2
+    fi
+    echo $no_lf "$progname: $*" >&2
+    return
+}
+
+srcdir="$HOME/src/other/postgres"
+cd "$srcdir" || exit 1
+
+if test "$opt_update" = "1"; then
+    git fetch origin
+    git merge --ff-only
+    git allbr origin
+    shift
+fi
+
+user=sunny
+pgdesc="$(git desc --long --tags)"
+pgdir="postgres-$pgdesc"
+prefix="/usr/local"
+prgdir="$prefix/prg"
+destdir="$prefix/varprg/$pgdir"
+dbroot="/var/lib/postgresql"
+dumpfile="$dbroot/$(date -u +"%Y%m%dT%H%M%SZ").all.pgdump.gz"
+
+test -e "$destdir" && {
+    sudo rmdir "$destdir" || {
+        echo $progname: $destdir already exists >&2
+        exit 1
+    }
+}
+
+test -e "$dbroot/$pgdesc/main" && {
+    echo $progname: $dbroot/$pgdesc/main already exists >&2
+    exit 1
+}
+
+git wait-until-clean
+msg Remove ignored files from $(pwd)/
+git clean -fxd || {
+    msg \"git wait-until-clean\" or \"git clean\" failed
+    exit 1
+}
+
+old_version="$(
+    $prgdir/postgres/bin/postgres --version 2>/dev/null | fmt -1 | tail -1
+)"
+
+if [ -n "$old_version" ]; then
+    msg git status in $(pwd)
+    GIT_PAGER=cat git status
+    unset choice
+    until [ "$choice" = "y" ]; do
+        echo
+        unset choice
+        echo $(
+            git log --format=oneline $old_version..$pgdesc | wc -l
+        ) new commits available in range $old_version..$pgdesc
+        echo Going to compile Postgres $pgdesc
+        echo
+        echo If that looks okay to you, press \'y\' to start the build, or:
+        echo \'d\' to diff
+        echo \'ds\' to diff --stat
+        echo \'dw\' to word-diff
+        echo \'l\' to list log
+        echo \'ld\' to list current databases
+        echo \'lp\' to list log with patch
+        echo \'lt\' to list log with commit tree
+        echo \'lw\' to list log with patch using word diff
+        echo \'n\' to abort
+        echo \'p\' to push new commits
+        echo \'t\' to show commit tree
+        read choice
+        [ "$choice" = "d" ] && git diff $old_version $pgdesc
+        [ "$choice" = "ds" ] && git diff --stat $old_version $pgdesc
+        [ "$choice" = "dw" ] && git diff --word-diff $old_version $pgdesc
+        [ "$choice" = "l" ] && git log --stat $old_version..$pgdesc
+        [ "$choice" = "ld" ] && psql -X -c '\l+'
+        [ "$choice" = "lp" ] && git log --patch $old_version..$pgdesc
+        [ "$choice" = "lt" ] && git log --graph --stat $old_version..$pgdesc
+        [ "$choice" = "lw" ] && git log --patch --word-diff $old_version..$pgdesc
+        [ "$choice" = "n" ] && exit 0
+        [ "$choice" = "p" ] && git pa
+        [ "$choice" = "t" ] && {
+            git log --abbrev-commit --date-order --decorate=short --graph \
+              --pretty=format:'%Cred%h %Cblue%p%Creset -%Creset %s %Cgreen(%cd %Cblue%an%Cgreen)%Creset%C(yellow)%d%Creset' \
+              $old_version..$pgdesc
+        }
+    echo
+    done
+else
+    unset choice
+    until [ "$choice" = "y" ]; do
+        echo -n Press \'y\' to start the build, or \'n\' to abort...
+        read choice
+        [ "$choice" = "n" ] && exit 0
+    done
+fi
+
+msg mkdir $destdir &&
+sudo mkdir -p "$destdir" &&
+
+msg chown $user.$user $destdir &&
+sudo chown $user.$user "$destdir" &&
+
+msg Run ./configure &&
+./configure --prefix="$destdir" --with-extra-version="+$pgdesc" \
+  --enable-debug --with-libxml --with-openssl --with-perl --with-uuid=ossp &&
+
+msg make world &&
+make world &&
+
+msg make check &&
+make check &&
+
+msg make install-world &&
+make install-world &&
+
+until sudo -u postgres echo postgres pwd OK | grep -q "postgres pwd OK"; do
+    :
+done &&
+
+msg Dump all databases to $dumpfile &&
+sudo -u postgres bash -c "pg_dumpall | gzip >\"$dumpfile\"" &&
+
+msg pg_ctl stop &&
+sudo -u postgres pg_ctl -D "$dbroot/current/main" stop &&
+
+msg Update the $prgdir/postgres symlink &&
+cd "$prgdir" &&
+sudo ln -fnsv "../varprg/$pgdir" postgres &&
+
+msg Create \'current\' symlink to $pgdesc &&
+sudo -u postgres ln -fnsv "$pgdesc" "$dbroot/current" &&
+
+msg initdb &&
+sudo -u postgres initdb --lc-collate=C -E UTF-8 "$dbroot/$pgdesc/main" &&
+
+msg pg_ctl start &&
+sudo -u postgres pg_ctl -D "$dbroot/$pgdesc/main" \
+    -l "$dbroot/$pgdesc/logfile" start &&
+
+sudo -u postgres bash -c "until pg_isready -q; do sleep 1; done" &&
+
+msg build-postgis &&
+build-postgis &&
+
+msg Restore databases from $dumpfile &&
+sudo -u postgres bash -c "zcat \"$dumpfile\" | psql postgres" &&
+
+msg Create manpage symlinks &&
+for f in 1 3 7; do
+    cd "$prefix/share/man/man$f" &&
+    sudo ln -nfsv ../../../prg/postgres/share/man/man$f/* . || true
+done &&
+
+echo &&
+echo $progname: Old version: $old_version >&2 &&
+echo $progname: New version: $(
+    $prgdir/postgres/bin/postgres --version | fmt -1 | tail -1
+) >&2 &&
+
+if test -d "$prefix/.git/."; then
+    msg Commit the symlink &&
+    commitmsg=$(
+        echo $progname installed $pgdir on $(hostname)
+        echo
+        suuid -t commit,$progname
+    ) &&
+    cd "$prgdir" &&
+    sudo git add postgres &&
+    echo Commit message: &&
+    echo $commitmsg &&
+    sudo git commit -m "$commitmsg" &&
+    msg \"git pa\" in $(pwd) &&
+    (git pa || true)
+fi &&
+
+echo &&
+echo $progname finished successfully >&2 &&
+exit 0 || {
+    msg Something went wrong, aborted
+    sudo rmdir "$destdir"
+    exit 1
+}
