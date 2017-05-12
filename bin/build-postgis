@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+#=======================================================================
+# build-postgis
+# File ID: 4467f922-5330-11e5-814f-fefdb24f8e10
+#
+# Compile and install PostGIS
+#
+# Author: Øyvind A. Holm <sunny@sunbase.org>
+# License: GNU General Public License version 2 or later.
+#=======================================================================
+
+progname=build-postgis
+VERSION=0.3.0
+
+srcdir="$HOME/src/other/postgis"
+
+ARGS="$(getopt -o "\
+h\
+q\
+v\
+" -l "\
+help,\
+quiet,\
+verbose,\
+version,\
+" -n "$progname" -- "$@")"
+test "$?" = "0" || exit 1
+eval set -- "$ARGS"
+
+opt_help=0
+opt_quiet=0
+opt_verbose=0
+while :; do
+    case "$1" in
+        (-h|--help) opt_help=1; shift ;;
+        (-q|--quiet) opt_quiet=$(($opt_quiet + 1)); shift ;;
+        (-v|--verbose) opt_verbose=$(($opt_verbose + 1)); shift ;;
+        (--version) echo $progname $VERSION; exit 0 ;;
+        (--) shift; break ;;
+        (*) echo $progname: Internal error >&2; exit 1 ;;
+    esac
+done
+opt_verbose=$(($opt_verbose - $opt_quiet))
+
+if test "$opt_help" = "1"; then
+    test $opt_verbose -gt 0 && { echo; echo $progname $VERSION; }
+    cat <<END
+
+Compile and install PostGIS from $srcdir
+
+Usage: $progname [options]
+
+Options:
+
+  -h, --help
+    Show this help.
+  -q, --quiet
+    Be more quiet. Can be repeated to increase silence.
+  -v, --verbose
+    Increase level of verbosity. Can be repeated.
+  --version
+    Print version information.
+
+END
+    exit 0
+fi
+
+msg() {
+    echo >&2
+    echo $progname: $* >&2
+}
+
+if ! test -d "$srcdir/."; then
+    git clone -o o-gitlab git@gitlab.com:postgis/postgis.git $srcdir &&
+    cd "$srcdir" &&
+    git remote add o-github git@github.com:postgis/postgis.git &&
+    git fetch o-github &&
+    echo &&
+    echo $progname: No stable version is selected, you have to choose one. &&
+    echo $progname: Dropping you into a bash shell, please take care of that &&
+    echo $progname: and return to the build with \'exit\'. &&
+    echo &&
+    echo $progname: List of newest tags: &&
+    echo &&
+    git tag --sort=version:refname | grep -E '^[2-9]' | tail &&
+    bash &&
+    echo $progname: Continuing the build process... || {
+        echo $progname: Something went wrong after clone or shell, aborting
+        exit 1
+    }
+fi
+
+tmpdb=postgis-test-$(date +%s)
+
+cd "$srcdir" &&
+git-wait-until-clean &&
+msg Remove ignored files from $(pwd)/ &&
+git clean -fxd &&
+msg ./autogen.sh &&
+./autogen.sh &&
+msg ./configure &&
+./configure &&
+msg make &&
+make &&
+msg make install &&
+sudo make install &&
+msg Test that the installation works &&
+sudo -u postgres createdb "$tmpdb" &&
+sudo -u postgres psql "$tmpdb" -c "CREATE EXTENSION postgis;" &&
+sudo -u postgres dropdb "$tmpdb" && {
+    msg PostGIS installation ok
+    exit 0
+} || {
+    msg Cannot create postgis extension, something is wrong
+    exit 1
+}
