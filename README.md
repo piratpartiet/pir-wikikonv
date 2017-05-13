@@ -17,11 +17,17 @@ som ikke stemmer. Disse make-kommandoene er tilgjengelige:
   Kjør diverse tester for å se at systemet fungerer greit nok. Sjekker 
   at alle forutsetninger er til stede, som f.eks. installert programvare 
   osv.
+- **make README.html**<br />
+  Generer `README.html` fra `README.md`. Trenger `cmark`(1) fra 
+  <http://commonmark.org>. Gjøres automatisk av `make`.
 
 Status
 ------
 
-Ja, dette blir jo interessant...
+Ja, dette blir jo interessant... Har utarbeidet en slags plan for 
+hvordan konverteringen kan foregå. Får vel egentlig ikke gjort noe mer 
+før den nye serveren kommer. Riktige versjoner av Postgres, webserver og 
+Mediawiki må installeres der så det er forutsigbare forhold.
 
 Foreløpig plan
 --------------
@@ -33,18 +39,18 @@ Foreløpig plan
 - Installer Mediawiki
   - Fra Git, eller skal den fra apt-get brukes?
 
-### Det konverteres, søk dekning
+### Det konverteres, søk dekning 💣
 
 Så mye som mulig skal automatiseres for å få forutsigbare resultater, 
-menneskelige variabler må reduseres.
+menneskelige variabler må elimineres så langt det lar seg gjøre.
 
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
   februar. Det kan bli problematisk med Special:Recentchanges, det ser 
   ut som den bare går 14 dager bak i tid eller noe. Ser ut som databasen 
-  prunes med jevne mellomrom så gamle entryer blir slettet. Jepp, WTF. 
-  Det som da sikkert må gjøres, er å aksessere databasen direkte og 
+  prunes med jevne mellomrom så gamle entryer blir slettet. Helt enig, 
+  WTF. Det som da sikkert må gjøres, er å aksessere databasen direkte og 
   finne ut av nye/endrede sider med en dose SELECT-magi.
 - Sjekk at slettede sider og revisjoner også kommer med i XML-dataene.
 - Eksporter alle disse sidene til XML. Tror det går an å spesifisere 
@@ -52,6 +58,11 @@ menneskelige variabler må reduseres.
   der det skjer. Forhåpentligvis leveres XML-en med fullstendige sider 
   for hver versjon, og ikke bare som en delta mot forrige versjon av 
   siden.
+- XML-dataene versjonskontrolleres fra begynnelse til slutt – fra de 
+  blir eksportert fra v2 til de importeres inn i v3 – med Git så alle 
+  forandringer som gjøres i XML-fila blir dokumentert og finsjekket. 
+  Absolutt ingen dataforandringer aksepteres, det er lett å sjekke med 
+  git diff at ingen uønskede forandringer kommer med.
 - Sjekk at XML-en ser grei ut:
   - Tegnsett, UTF-8 brukes over hele linja.
   - Det er sikkert uregelmessigheter i brukerne. Mye av det er visst 
