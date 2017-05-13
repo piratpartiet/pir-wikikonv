@@ -31,7 +31,7 @@ Foreløpig plan
 - Installer Mediawiki
   - Fra Git, eller skal den fra apt-get brukes?
 
-- Sett opp v2-wikien med MySQL, evt bruk den som kjører host 1984.is i 
+- Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
 - Lag en liste over nye/endrede sider på wikien siden februar. Det kan 
   bli problematisk med Special:Recentchanges, det ser ut som den bare 
