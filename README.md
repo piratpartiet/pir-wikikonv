@@ -17,6 +17,9 @@ som ikke stemmer. Disse make-kommandoene er tilgjengelige:
   Kjør diverse tester for å se at systemet fungerer greit nok. Sjekker 
   at alle forutsetninger er til stede, som f.eks. installert programvare 
   osv.
+- **make edit**<br />
+  Rediger alle filene i repoen. Bruker favoritteditoren din, det vil si 
+  den som er definert i `EDITOR`.
 - **make README.html**<br />
   Generer `README.html` fra `README.md`. Trenger `cmark`(1) fra 
   <http://commonmark.org>. Gjøres automatisk av `make`.

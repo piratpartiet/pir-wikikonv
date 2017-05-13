@@ -19,6 +19,10 @@ README.html: README.md
 clean:
 	rm -f README.html
 
+.PHONY: edit
+edit:
+	$(EDITOR) $$(git ls-files)
+
 .PHONY: test
 test:
 	cmark --version | grep -q CommonMark
