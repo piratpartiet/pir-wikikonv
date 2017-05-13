@@ -47,6 +47,10 @@ Foreløpig plan
 Så mye som mulig skal automatiseres for å få forutsigbare resultater, 
 menneskelige variabler må elimineres så langt det lar seg gjøre.
 
+- Send mail med minst 24 timers varsel til alle som bruker wikien om at 
+  den ikke må brukes mens konverteringen foregår, nye forandringer vil 
+  gå tapt. Hvis det er mulig, bør den settes til read-only mens ting 
+  skjer.
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
@@ -111,6 +115,10 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     igjen.
   - Kjør denne listen gjennom et eller annet genialt program som sletter 
     alle disse spambrukerne og all møkka de har dratt inn på teppet.
+- Ta en fullstendig backup av databasen og alle mediafilene.
+- Skift DNS fra 1984.is til den nye, deilige serveren.
+- Vent en stund til DNS har oppdatert seg og send mail til wikibrukerne 
+  om at wikien er oppe igjen på ny server.
 - Profit!
 
 Lisens
