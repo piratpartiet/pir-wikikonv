@@ -84,13 +84,12 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     kronologi. Sjekk at tidspunktene ser riktige ut, for eksempel at det 
     er riktig tidssone og at UTC ikke er forskjøvet.
   - Lag en fullstendig liste over artikler fra v2 og sjekk at den 
-    stemmer overens med de i v3.
-    - Det ender vel opp med en SELECT fra v2 og v3 som diffes mot 
-      hverandre.
-  - Sjekk at alle artikler i v2 og v3 er identiske.
-    - Kan for eksempel gjøres ved å kjøre SELECT fra v2 og v3 til et 
-      TAB-separert format der kun relevante metadata sammenlignes: 
-      tittel, tidspunkt, brukernavn og den nye versjonen av artikkelen.
+    stemmer overens med de i v3. Det ender vel opp med en SELECT fra v2 
+    og v3 som diffes mot hverandre.
+  - Sjekk at alle artikler i v2 og v3 er identiske. Kan for eksempel 
+    gjøres ved å kjøre SELECT fra v2 og v3 til et TAB-separert format 
+    der kun relevante metadata sammenlignes: tittel, tidspunkt, 
+    brukernavn og den nye versjonen av artikkelen.
   - Sjekk at nye mediafiler (`File:*`) er kommet på plass og er 
     tilgjengelige.
 - Sigarer fyres opp for å feire fødselen av v3-wikien.
