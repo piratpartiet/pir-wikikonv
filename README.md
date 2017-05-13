@@ -47,7 +47,7 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
-  februar. Det kan bli problematisk med Special:Recentchanges, det ser 
+  februar. Det kan bli problematisk med Special:RecentChanges, det ser 
   ut som den bare går 14 dager bak i tid eller noe. Ser ut som databasen 
   prunes med jevne mellomrom så gamle entryer blir slettet. Helt enig, 
   WTF. Det som da sikkert må gjøres, er å aksessere databasen direkte og 
@@ -75,9 +75,16 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 - Importer XML-en på toppen av v1-wikien.
 - Sjekk at importen gikk greit:
   - Sjekk at alle sider i `nyesider.txt` er lagt til og har en fornuftig 
-    kronologi. Sjekk at tidspunktene ser riktige ut.
+    kronologi. Sjekk at tidspunktene ser riktige ut, for eksempel at det 
+    er riktig tidssone og at UTC ikke er forskjøvet.
   - Lag en fullstendig liste over artikler fra v2 og sjekk at den 
     stemmer overens med de i v3.
+    - Det ender vel opp med en SELECT fra v2 og v3 som diffes mot 
+      hverandre.
+  - Sjekk at alle artikler i v2 og v3 er identiske.
+    - Kan for eksempel gjøres ved å kjøre SELECT fra v2 og v3 til et 
+      TAB-separert format der kun relevante metadata sammenlignes: 
+      tittel, tidspunkt, brukernavn og den nye versjonen av artikkelen.
   - Sjekk at nye mediafiler (`File:*`) er kommet på plass og er 
     tilgjengelige.
 - Sigarer fyres opp for å feire fødselen av v3-wikien.
