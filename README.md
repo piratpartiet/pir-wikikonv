@@ -17,6 +17,14 @@ Github](https://github.com/piratpartiet/pir-wikikonv/issues), hvis du
 liker å henge rundt der istedenfor. Begge repoene på Gitlab og Github 
 blir oppdatert samtidig.
 
+Status
+------
+
+Ja, dette blir jo interessant... Har utarbeidet en slags plan for 
+hvordan konverteringen kan foregå. Får vel egentlig ikke gjort noe mer 
+før den nye serveren kommer. Riktige versjoner av Postgres, webserver og 
+Mediawiki må installeres der så det er forutsigbare forhold.
+
 make-kommandoer
 ---------------
 
@@ -40,14 +48,6 @@ Disse make-kommandoene er tilgjengelige:
 - **make view**<br />
   Kjør `make README.html` og vis den med `lynx`(1) for å se at alt ser 
   greit ut.
-
-Status
-------
-
-Ja, dette blir jo interessant... Har utarbeidet en slags plan for 
-hvordan konverteringen kan foregå. Får vel egentlig ikke gjort noe mer 
-før den nye serveren kommer. Riktige versjoner av Postgres, webserver og 
-Mediawiki må installeres der så det er forutsigbare forhold.
 
 Foreløpig plan
 --------------
