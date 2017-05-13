@@ -20,3 +20,7 @@ clean:
 .PHONY: test
 test:
 	cmark --version | grep -q CommonMark
+
+.PHONY: view
+view: README.html
+	lynx README.html
