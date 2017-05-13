@@ -35,14 +35,17 @@ Foreløpig plan
 
 ### Det konverteres, søk dekning
 
+Så mye som mulig skal automatiseres for å få forutsigbare resultater, 
+menneskelige variabler må reduseres.
+
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
-- Lag en liste over nye/endrede sider på wikien siden februar. Det kan 
-  bli problematisk med Special:Recentchanges, det ser ut som den bare 
-  går 14 dager bak i tid eller noe. Ser ut som databasen prunes med 
-  jevne mellomrom så gamle entryer blir slettet. Jepp, WTF. Det som da 
-  sikkert må gjøres, er å aksessere databasen direkte og finne ut av 
-  nye/endrede sider med en dose SELECT-magi.
+- Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
+  februar. Det kan bli problematisk med Special:Recentchanges, det ser 
+  ut som den bare går 14 dager bak i tid eller noe. Ser ut som databasen 
+  prunes med jevne mellomrom så gamle entryer blir slettet. Jepp, WTF. 
+  Det som da sikkert må gjøres, er å aksessere databasen direkte og 
+  finne ut av nye/endrede sider med en dose SELECT-magi.
 - Sjekk at slettede sider og revisjoner også kommer med i XML-dataene.
 - Eksporter alle disse sidene til XML. Tror det går an å spesifisere 
   mange sider samtidig, så vidt jeg husker er det et stort TEXTAREA-felt 
@@ -50,12 +53,22 @@ Foreløpig plan
   for hver versjon, og ikke bare som en delta mot forrige versjon av 
   siden.
 - Sjekk at XML-en ser grei ut:
-  - Tegnsett, UTF-8 brukes over hele linja
+  - Tegnsett, UTF-8 brukes over hele linja.
   - Det er sikkert uregelmessigheter i brukerne. Mye av det er visst 
     tegnsettrelatert, virker som de ligger lagret med ISO-8859-1 i 
     databasen. Jeg mangler, for eksempel. Snufs. Laget en ny bruker der 
     med samme navn, så denslags konflikter kommer sikkert også.
+- Nye brukere siden februar må sikkert legges til i v1-wikien før 
+  importen, ellers kan det kanskje bli inkonsistens når revisjoner laget 
+  av ikke-eksisterende brukere blir lagt til.
 - Importer XML-en på toppen av v1-wikien.
+- Sjekk at importen gikk greit:
+  - Sjekk at alle sider i `nyesider.txt` er lagt til og har en fornuftig 
+    kronologi. Sjekk at tidspunktene ser riktige ut.
+  - Lag en fullstendig liste over artikler fra v2 og sjekk at den 
+    stemmer overens med de i v3.
+  - Sjekk at nye mediafiler (`File:*`) er kommet på plass og er 
+    tilgjengelige.
 - Sigarer fyres opp for å feire fødselen av v3-wikien.
 
 ### Etter konverteringen når støvet har lagt seg
@@ -69,7 +82,7 @@ Foreløpig plan
 - Skrivebeskytt alle referater og andre dokumenter som er arkivert og 
   ikke skal oppdateres mer. Historien bør også sjekkes for å se at ingen 
   ureglementære endringer er gjort.
-- Fjern spam
+- Fjern spam:
   - Lag liste over alle brukerne.
   - Fjern alle som ser fornuftige ut, la åpenbare spambrukere ligge 
     igjen.
