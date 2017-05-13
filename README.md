@@ -6,7 +6,21 @@ lage konverteringsscripts som skal utvikles, finpusses og prøvekjøres
 flere ganger før den store dagen opprinner. Selve konverteringen kjøres 
 med en standard `make`. Den fortsetter fra der konverteringen ble 
 avbrutt sist, og avbrytes ved første feil eller tegn på at det er noe 
-som ikke stemmer. Disse make-kommandoene er tilgjengelige:
+som ikke stemmer.
+
+Kommentarer og pullrequester er selvfølgelig veldig gode ting, spesielt 
+hvis noen ser at det går galt avgårde. For å holde kommunikasjonen 
+samlet, er det sikkert best å åpne en [issue på 
+Gitlab](https://gitlab.com/piratpartiet/pir-wikikonv/issues) hvis det er 
+noe som kommer opp. [Eller 
+Github](https://github.com/piratpartiet/pir-wikikonv/issues), hvis du 
+liker å henge rundt der istedenfor. Begge repoene på Gitlab og Github 
+blir oppdatert samtidig.
+
+make-kommandoer
+---------------
+
+Disse make-kommandoene er tilgjengelige:
 
 - **make**<br />
   Kjør konverteringen.
