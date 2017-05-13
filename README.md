@@ -55,6 +55,8 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
   prunes med jevne mellomrom så gamle entryer blir slettet. Helt enig, 
   WTF. Det som da sikkert må gjøres, er å aksessere databasen direkte og 
   finne ut av nye/endrede sider med en dose SELECT-magi.
+- Eksporter en liste over alle brukerne i v1 og v2. Se etter 
+  uregelmessigheter som f.eks. feil tegnsett.
 - Sjekk at slettede sider og revisjoner også kommer med i XML-dataene.
 - Eksporter alle disse sidene til XML. Tror det går an å spesifisere 
   mange sider samtidig, så vidt jeg husker er det et stort TEXTAREA-felt 
@@ -70,8 +72,9 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
   - Tegnsett, UTF-8 brukes over hele linja.
   - Det er sikkert uregelmessigheter i brukerne. Mye av det er visst 
     tegnsettrelatert, virker som de ligger lagret med ISO-8859-1 i 
-    databasen. Jeg mangler, for eksempel. Snufs. Laget en ny bruker der 
-    med samme navn, så denslags konflikter kommer sikkert også.
+    v2-databasen. Jeg mangler, for eksempel. Snufs. Laget en ny bruker 
+    der med samme navn, så denslags konflikter kommer sikkert også.
+- Slett spam fra XML-fila så det ikke blir importert inn i v3.
 - Nye brukere siden februar må sikkert legges til i v1-wikien før 
   importen, ellers kan det kanskje bli inkonsistens når revisjoner laget 
   av ikke-eksisterende brukere blir lagt til.
@@ -116,3 +119,8 @@ Lisens
 
 Alle filene er lisensiert under GNU General Public License v2 eller 
 senere, tilgjengelig fra <http://www.gnu.org/licenses/gpl-2.0.txt>.
+
+---
+
+    File ID: 26cda2f0-3802-11e7-aec6-f74d993421b0
+    vim: set et fenc=utf8 fo=clnqtw sts=2 sw=2 ts=2 tw=72 :
