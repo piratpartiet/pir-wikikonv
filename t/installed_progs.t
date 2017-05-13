@@ -2,7 +2,7 @@
 
 #=======================================================================
 # installed_progs.t
-# File ID: 3d0e23bc-400e-11e4-a184-c80aa9e67bbd
+# File ID: b47e7680-3837-11e7-a6e0-db5caa6d21d3
 #
 # Check that some necessary programs are installed.
 #
@@ -44,7 +44,7 @@ our %Opt = (
 
 our $progname = $0;
 $progname =~ s/^.*\/(.*?)$/$1/;
-our $VERSION = '0.6.0';
+our $VERSION = '0.6.0+pir-wikikonv';
 
 my %descriptions = ();
 
