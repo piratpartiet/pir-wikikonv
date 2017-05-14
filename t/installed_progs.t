@@ -122,7 +122,6 @@ END
     # installed('bash --version', '/^GNU bash/', 'stdout');
     # installed('bc --version', '/^bc \d.*Free Software Foundation/s', 'stdout');
     # installed('cmake --version', '/^cmake version \d/', 'stdout');
-    # installed('cmark --version', '/^cmark \d+\.\d+\.\d+/', 'stdout');
     # installed('cronolog --version', '/^cronolog version \d/', 'stderr');
     # installed('ctags --version', '/^Exuberant Ctags \d/', 'stdout');
     # installed('curl --version', '/^curl /', 'stdout');
@@ -173,6 +172,7 @@ END
     # repeat_test('uuidgen -r', 100, "^$v4_templ\$");
     # repeat_test('uuidgen -t', 100, "^$v1_templ\$");
     diag("Checking important software...");
+    installed('cmark --version', '/^cmark \d+\.\d+\.\d+/', 'stdout');
 
     # is(`echo "SELECT json('[\\"a\\",   4,   true, { \\"abc\\"  :\\"def\\"}]');" | sqlite3 2>/dev/null`,
     #     "[\"a\",4,true,{\"abc\":\"def\"}]\n",
