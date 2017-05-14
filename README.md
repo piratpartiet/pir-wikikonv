@@ -126,11 +126,11 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 ### Etter konverteringen når støvet har lagt seg
 
 - Oppdater brukerrettigheter:
+  - Degrader inaktive byråkrater og administratorer til vanlige brukere.
   - Rydd opp i alle byråkratene. Det bør være så få byråkrater som mulig 
     fordi de har stor makt, og hvis f.eks. en av disse blir cracket, kan 
     synderen gjøre mye skade. To-tre byråkrater holder, kanskje. Det er 
     et greit kompromiss mellom bussfaktor og anarki.
-  - Degrader inaktive brukere til vanlige brukere.
 - Installer CAPTCHA for å unngå spambots.
 - Skrivebeskytt alle referater og andre dokumenter som er arkivert og 
   ikke skal oppdateres mer. Historien bør også sjekkes for å se at ingen 
