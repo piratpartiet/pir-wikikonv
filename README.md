@@ -58,16 +58,6 @@ Foreløpig plan
 - Installer webserver, Apache eller NGINX
 - Installer Mediawiki
   - Fra Git, eller skal den fra apt-get brukes?
-
-### Det konverteres, søk dekning 💣
-
-Så mye som mulig skal automatiseres for å få forutsigbare resultater, 
-menneskelige variabler må elimineres så langt det lar seg gjøre.
-
-- Send mail med minst 24 timers varsel til alle som bruker wikien om at 
-  den ikke må brukes mens konverteringen foregår, nye forandringer vil 
-  gå tapt. Hvis det er mulig, bør den settes til read-only mens ting 
-  skjer.
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
   dag.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
@@ -79,6 +69,20 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 - Eksporter en liste over alle brukerne i v1 og v2. Se etter 
   uregelmessigheter som f.eks. feil tegnsett.
 - Sjekk at slettede sider og revisjoner også kommer med i XML-dataene.
+
+### Det konverteres, søk dekning 💣
+
+Så mye som mulig skal automatiseres for å få forutsigbare resultater, 
+menneskelige variabler må elimineres så langt det lar seg gjøre.
+
+- Send mail med minst 24 timers varsel til alle som bruker wikien om at 
+  den ikke må brukes mens konverteringen foregår, nye forandringer vil 
+  gå tapt. Hvis det er mulig, bør den settes til read-only mens ting 
+  skjer.
+- Sperr tilgangen til wikien for alle sammen.
+- Sjekk `Special:RecentChanges` for å finne nye artikler som har 
+  forandret seg etter at `nyesider.txt` ble laget, og legg eventuelle 
+  nye inn i fila.
 - Eksporter alle disse sidene til XML. Tror det går an å spesifisere 
   mange sider samtidig, så vidt jeg husker er det et stort TEXTAREA-felt 
   der det skjer. Forhåpentligvis leveres XML-en med fullstendige sider 
@@ -134,8 +138,9 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     alle disse spambrukerne og all møkka de har dratt inn på teppet.
 - Ta en fullstendig backup av databasen og alle mediafilene.
 - Skift DNS fra 1984.is til den nye, deilige serveren.
-- Vent en stund til DNS har oppdatert seg og send mail til wikibrukerne 
-  om at wikien er oppe igjen på ny server.
+- Vent en stund til DNS har oppdatert seg.
+- Gi alle sammen tilgang til wikien igjen.
+- Send mail til wikibrukerne om at wikien er oppe igjen på ny server.
 - Profit!
 
 Lisens
