@@ -70,6 +70,8 @@ Foreløpig plan
   finne ut av nye/endrede sider med en dose SELECT-magi.
 - Eksporter en liste over alle brukerne i v1 og v2. Se etter 
   uregelmessigheter som f.eks. feil tegnsett.
+- Sammenlign brukerlista for v1 og v2. Det er sikkert en haug med 
+  spammere i v2 som kan slettes etter at konverteringen er ferdig.
 - Sjekk at slettede sider og revisjoner også kommer med i XML-dataene.
 
 ### Det konverteres, søk dekning 💣
@@ -102,9 +104,9 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     v2-databasen. Jeg mangler, for eksempel. Snufs. Laget en ny bruker 
     der med samme navn, så denslags konflikter kommer sikkert også.
 - Slett spam fra XML-fila så det ikke blir importert inn i v3.
-- Nye brukere siden februar må sikkert legges til i v1-wikien før 
-  importen, ellers kan det kanskje bli inkonsistens når revisjoner laget 
-  av ikke-eksisterende brukere blir lagt til.
+- Nye brukere med endringer siden februar må sikkert legges til i 
+  v1-wikien før importen, ellers kan det kanskje bli inkonsistens når 
+  revisjoner laget av ikke-eksisterende brukere blir lagt til.
 - Importer XML-en på toppen av v1-wikien.
 - Sjekk at importen gikk greit:
   - Sjekk at alle sider i `nyesider.txt` er lagt til og har en fornuftig 
@@ -119,23 +121,24 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     brukernavn og den nye versjonen av artikkelen.
   - Sjekk at nye mediafiler (`File:*`) er kommet på plass og er 
     tilgjengelige.
-- Sigarer fyres opp for å feire fødselen av v3-wikien.
+- Sigarer fyres opp og ganer leskes med den lekreste cognac.
 
 ### Etter konverteringen når støvet har lagt seg
 
-- Oppdater brukerrettigheter. F.eks. opprydding i alle byråkratene. Det 
-  bør være så få byråkrater som mulig fordi de har stor makt, og hvis 
-  f.eks. en av disse blir cracket, kan synderen gjøre mye skade. To-tre 
-  byråkrater holder, kanskje. Det er et greit kompromiss mellom 
-  bussfaktor og anarki.
+- Oppdater brukerrettigheter:
+  - Rydd opp i alle byråkratene. Det bør være så få byråkrater som mulig 
+    fordi de har stor makt, og hvis f.eks. en av disse blir cracket, kan 
+    synderen gjøre mye skade. To-tre byråkrater holder, kanskje. Det er 
+    et greit kompromiss mellom bussfaktor og anarki.
+  - Degrader inaktive brukere til vanlige brukere.
 - Installer CAPTCHA for å unngå spambots.
 - Skrivebeskytt alle referater og andre dokumenter som er arkivert og 
   ikke skal oppdateres mer. Historien bør også sjekkes for å se at ingen 
   ureglementære endringer er gjort.
 - Fjern spam:
   - Lag liste over alle brukerne.
-  - Fjern alle som ser fornuftige ut, la åpenbare spambrukere ligge 
-    igjen.
+  - Fjern alle som ser fornuftige ut, kun åpenbare spambrukere skal 
+    ligge igjen.
   - Kjør denne listen gjennom et eller annet genialt program som sletter 
     alle disse spambrukerne og all møkka de har dratt inn på teppet.
 - Ta en fullstendig backup av databasen og alle mediafilene.
