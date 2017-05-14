@@ -59,7 +59,9 @@ Foreløpig plan
 - Installer Mediawiki
   - Fra Git, eller skal den fra apt-get brukes?
 - Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
-  dag.
+  dag hvis shellaksess kan ordnes der.
+- Ta en dump av hele wikidatabasen fra 1984.is og legg den inn som lokal 
+  backup.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
   februar. Det kan bli problematisk med Special:RecentChanges, det ser 
   ut som den bare går 14 dager bak i tid eller noe. Ser ut som databasen 
@@ -83,16 +85,16 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 - Sjekk `Special:RecentChanges` for å finne nye artikler som har 
   forandret seg etter at `nyesider.txt` ble laget, og legg eventuelle 
   nye inn i fila.
-- Eksporter alle disse sidene til XML. Tror det går an å spesifisere 
-  mange sider samtidig, så vidt jeg husker er det et stort TEXTAREA-felt 
-  der det skjer. Forhåpentligvis leveres XML-en med fullstendige sider 
-  for hver versjon, og ikke bare som en delta mot forrige versjon av 
-  siden.
+- Eksporter sidene i `nyesider.txt` til XML, kun historie siden februar 
+  skal eksporteres. Tror det går an å spesifisere mange sider samtidig, 
+  så vidt jeg husker er det et stort TEXTAREA-felt der det skjer. 
+  Forhåpentligvis leveres XML-en med fullstendige sider for hver 
+  versjon, og ikke bare som en delta mot forrige versjon av siden.
 - XML-dataene versjonskontrolleres fra begynnelse til slutt – fra de 
   blir eksportert fra v2 til de importeres inn i v3 – med Git så alle 
   forandringer som gjøres i XML-fila blir dokumentert og finsjekket. 
   Absolutt ingen dataforandringer aksepteres, det er lett å sjekke med 
-  git diff at ingen uønskede forandringer kommer med.
+  `git diff` at ingen uønskede forandringer kommer med.
 - Sjekk at XML-en ser grei ut:
   - Tegnsett, UTF-8 brukes over hele linja.
   - Det er sikkert uregelmessigheter i brukerne. Mye av det er visst 
@@ -139,7 +141,8 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
 - Ta en fullstendig backup av databasen og alle mediafilene.
 - Skift DNS fra 1984.is til den nye, deilige serveren.
 - Vent en stund til DNS har oppdatert seg.
-- Gi alle sammen tilgang til wikien igjen.
+- Fjern v2-wikien fra nettet.
+- Gi alle sammen tilgang til den nye v3-wikien.
 - Send mail til wikibrukerne om at wikien er oppe igjen på ny server.
 - Profit!
 
