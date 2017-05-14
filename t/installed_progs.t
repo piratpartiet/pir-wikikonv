@@ -117,7 +117,6 @@ END
     #     users vdir wc who whoami yes
     # });
 
-    # diag("Checking important software...");
     # installed('archivemount --version', '/^archivemount version \d/', 'stderr');
     # installed('autoconf --version', '/GNU Autoconf/', 'stdout');
     # installed('bash --version', '/^GNU bash/', 'stdout');
@@ -173,6 +172,7 @@ END
     # installed('zip -v', '/This is Zip \d.*Info-ZIP/', 'stdout');
     # repeat_test('uuidgen -r', 100, "^$v4_templ\$");
     # repeat_test('uuidgen -t', 100, "^$v1_templ\$");
+    diag("Checking important software...");
 
     # is(`echo "SELECT json('[\\"a\\",   4,   true, { \\"abc\\"  :\\"def\\"}]');" | sqlite3 2>/dev/null`,
     #     "[\"a\",4,true,{\"abc\":\"def\"}]\n",
@@ -181,7 +181,6 @@ END
 
     if ($Opt{'other'} || $Opt{'all'}) {
 
-        # diag("Checking other software...");
         # installed('arj', '/^ARJ\S*? v \d/', 'stdout');
         # installed('asciidoc --version', '/^asciidoc \d/', 'stdout');
         # installed('bison --version', '/^bison\b.+GNU Bison\b/', 'stdout');
@@ -231,12 +230,12 @@ END
         # installed('xmlto --version', '/^xmlto version \d/', 'stdout');
         # installed('xz --version', '/^xz \(XZ Utils\) \d/s', 'stdout');
         # installed('youtube-dl --version', '/^20\d\d\.\d\d\.\d\d/', 'stdout');
+        diag("Checking other software...");
 
     }
 
     if ($Opt{'gui'} || $Opt{'all'}) {
 
-        # diag("Checking graphical software...");
         # installed('abiword --version', '/^\d\.\d+\.\d+/', 'stdout');
         # installed('bash -c "type -p gnome-system-monitor"', '/bin\/gnome-system-monitor$/', 'stdout');
         # installed('celestia --help', '/Usage:.*\bcelestia\b.+OPTION/s', 'stdout');
@@ -256,6 +255,7 @@ END
         # installed('x264 --version', '/^x264 \d/', 'stdout');
         # installed('xdot --help', '/Usage:.*\bxdot\b/s', 'stdout');
         # installed('xtightvncviewer -h', '/^TightVNC Viewer /', 'stderr');
+        diag("Checking graphical software...");
 
     }
 
