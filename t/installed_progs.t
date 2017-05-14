@@ -132,14 +132,10 @@ END
     # installed('fossil version', '/^This is fossil version 2\.1 /', 'stdout');
     # installed('gadu --version', '/git-annex-utils \d/', 'stdout');
     # installed('gcc --version', '/^gcc /', 'stdout');
-    # installed('git --version', '/^git version 2\.13/', 'stdout');
-    # installed('git-annex version', '/^git-annex version: /', 'stdout');
     # installed('gnuplot --version', '/^gnuplot /', 'stdout');
     # installed('gpg --version', '/^gpg.+GnuPG\b/', 'stdout');
-    # installed('grep --version', '/GNU grep/', 'stdout');
     # installed('gzip --version', '/^gzip \d/', 'stdout');
     # installed('lilypond --version', '/^GNU LilyPond 2/', 'stdout');
-    # installed('make --version', '/GNU Make/', 'stdout');
     # installed('mc --version', '/GNU Midnight Commander/', 'stdout');
     # installed('mysql --version', '/^$/', 'stdout', 'MySQL is not installed');
     # installed('ncdu -v', '/^ncdu \d/', 'stdout');
@@ -173,6 +169,11 @@ END
     # repeat_test('uuidgen -t', 100, "^$v1_templ\$");
     diag("Checking important software...");
     installed('cmark --version', '/^cmark \d+\.\d+\.\d+/', 'stdout');
+    installed('git --version', '/^git version 2\.13/', 'stdout');
+    installed('git-annex version', '/^git-annex version: /', 'stdout');
+    installed('grep --version', '/GNU grep/', 'stdout');
+    installed('lynx --version', '/^Lynx Version \d/', 'stdout');
+    installed('make --version', '/GNU Make/', 'stdout');
 
     # is(`echo "SELECT json('[\\"a\\",   4,   true, { \\"abc\\"  :\\"def\\"}]');" | sqlite3 2>/dev/null`,
     #     "[\"a\",4,true,{\"abc\":\"def\"}]\n",
@@ -202,7 +203,6 @@ END
         # installed('iotop --version', '/^iotop \d/', 'stdout');
         # installed('lame --version', '/LAME .* version /', 'stdout');
         # installed('lftp --version', '/^LFTP .+Version \d/', 'stdout');
-        # installed('lynx --version', '/^Lynx Version \d/', 'stdout');
         # installed('lzip --version', '/^Lzip \d/', 'stdout');
         # installed('mftrace --version', '/^mftrace \d\./', 'stdout');
         # installed('mosh --version', '/^mosh \d/', 'stderr');
