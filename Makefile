@@ -18,6 +18,7 @@ README.html: README.md
 .PHONY: clean
 clean:
 	rm -f README.html
+	cd t && $(MAKE) clean
 
 .PHONY: edit
 edit:
@@ -25,7 +26,7 @@ edit:
 
 .PHONY: test
 test:
-	cmark --version | grep -q CommonMark
+	cd t && $(MAKE) test
 	test -e $(DBFILE1)
 	test "$$(sha256sum $(DBFILE1) | head -c 12)" = "52ac43fb4c0f"
 
