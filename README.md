@@ -52,15 +52,24 @@ Disse make-kommandoene er tilgjengelige:
 Foreløpig plan
 --------------
 
+Når det snakkes om v1, v2 og v3 av repoene, menes dette:
+
+- **v1**: Den originale Postgres-wikien som var i drift fra 2012 til 
+  2017. Den er sunn og fin, men mangler innhold etter februar/mars 2017.
+- **v2**: MySQL-versjonen som lå på Island. Revisjonshistorien er totalt 
+  fucked og brukere mangler, visstnok bare de som har ÅÆØåæø eller andre 
+  tegn over U+7F i brukernavnet. Det er mulig at det er mer som ikke 
+  stemmer der, det gjenstår å se.
+- **v3**: Den nye wikien som skal brukes. Det er v1 med nye importerte 
+  forandringer fra v2. I tillegg skal spam og spambrukere slettes.
+
 ### Før konverteringen
 
 - Sjekk opp hvordan XML-eksporten fungerer
 - Installer webserver, Apache eller NGINX
 - Installer Mediawiki
   - Fra Git, eller skal den fra apt-get brukes?
-- Sett opp v2-wikien med MySQL, evt bruk den som kjører hos 1984.is i 
-  dag hvis shellaksess kan ordnes der.
-- Ta en dump av hele wikidatabasen fra 1984.is og legg den inn som lokal 
+- Ta en dump av hele v2-databasen fra 1984.is og legg den inn som lokal 
   backup.
 - Lag en liste (`nyesider.txt`) over nye/endrede sider på wikien siden 
   februar. Det kan bli problematisk med Special:RecentChanges, det ser 
@@ -132,21 +141,20 @@ menneskelige variabler må elimineres så langt det lar seg gjøre.
     synderen gjøre mye skade. To-tre byråkrater holder, kanskje. Det er 
     et greit kompromiss mellom bussfaktor og anarki.
 - Installer CAPTCHA for å unngå spambots.
-- Skrivebeskytt alle referater og andre dokumenter som er arkivert og 
-  ikke skal oppdateres mer. Historien bør også sjekkes for å se at ingen 
-  ureglementære endringer er gjort.
 - Fjern spam:
   - Lag liste over alle brukerne.
   - Fjern alle som ser fornuftige ut, kun åpenbare spambrukere skal 
     ligge igjen.
   - Kjør denne listen gjennom et eller annet genialt program som sletter 
     alle disse spambrukerne og all møkka de har dratt inn på teppet.
+- Skrivebeskytt alle referater og andre dokumenter som er arkivert og 
+  ikke skal oppdateres mer. Historien bør også sjekkes for å se at ingen 
+  ureglementære endringer er gjort.
 - Ta en fullstendig backup av databasen og alle mediafilene.
-- Skift DNS fra 1984.is til den nye, deilige serveren.
-- Vent en stund til DNS har oppdatert seg.
-- Fjern v2-wikien fra nettet.
+- Kjør ned v2-wikien, aktiviser v3.
 - Gi alle sammen tilgang til den nye v3-wikien.
-- Send mail til wikibrukerne om at wikien er oppe igjen på ny server.
+- Send mail til wikibrukerne om at konverteringen er ferdig og at den er 
+  klar til bruk.
 - Profit!
 
 Lisens
