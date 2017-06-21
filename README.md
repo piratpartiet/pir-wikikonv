@@ -55,7 +55,8 @@ Foreløpig plan
 Når det snakkes om v1, v2 og v3 av repoene, menes dette:
 
 - **v1**: Den originale Postgres-wikien som var i drift fra 2012 til 
-  2017. Den er sunn og fin, men mangler innhold etter februar/mars 2017.
+  februar 2017. Den er sunn og fin, men mangler innhold etter 
+  februar/mars 2017.
 - **v2**: MySQL-versjonen som lå på Island. Revisjonshistorien er totalt 
   fucked og brukere mangler, visstnok bare de som har ÅÆØåæø eller andre 
   tegn over U+7F i brukernavnet. Det er mulig at det er mer som ikke 
